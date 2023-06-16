@@ -1,0 +1,17 @@
+name: Prefect cloud run test
+
+on: workflow_dispatch
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@3.5.3
+        - name: Install
+          run: pip install prefect
+        - name: authenticate
+          env:
+            API_KEY: ${{secrets.PREFECT_API_KEY_GH}}
+          run: |
+            prefect cloud login -k $API_KEY
+            echo "Login completed"
