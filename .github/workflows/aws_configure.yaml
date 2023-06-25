@@ -1,0 +1,23 @@
+name: Prefect cloud run test
+
+on: workflow_dispatch
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v3.5.3
+        - name: Configure AWS Credentials For GitHub Actions
+          uses: aws-actions/configure-aws-credentials@v2
+          with:
+            aws-region: us-east-1
+            aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+            aws-secret-access-key: ${{ secrets.SECRET_KEY }}
+        - name: Setup Python
+          uses: actions/setup-python@v3.1.4
+        - name: Install libraries
+          run: pip install boto3
+        - name: Run script
+          run: python aws_boto3_test.py
+
