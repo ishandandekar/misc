@@ -1,4 +1,4 @@
-name: Prefect cloud run test
+name: Configure AWS
 
 on: workflow_dispatch
 
