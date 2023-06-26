@@ -16,3 +16,6 @@ jobs:
           run: |
             prefect cloud login -k $API_KEY --workspace ishandandekar/prefect-workspace-trial
             echo "Login completed"
+        - name: run script
+          run: |
+            python prefect_cloud_flow_check.py
