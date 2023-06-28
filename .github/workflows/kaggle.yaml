@@ -18,4 +18,5 @@ jobs:
         - name: Download data to folder
           run: |
             mkdir data && cd data
-            kaggle competitions download -c titanic
+            kaggle competitions download -qc titanic
+            ls -a
