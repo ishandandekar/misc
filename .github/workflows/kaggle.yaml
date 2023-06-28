@@ -1,0 +1,21 @@
+name: Kaggle data download
+
+on: workflow_dispatch
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v3.5.3
+        - name: login kaggle
+          uses: osbm/kaggle-login@main
+          with:
+            KAGGLE_USERNAME: ${{secrets.KaggleUsername}}
+            KAGGLE_KEY: ${{secrets.KaggleKey}}
+        - name: Verify login
+          run: kaggle --version
+        - name: Download data to folder
+          run: |
+            mkdir data && cd data
+            kaggle competitions download -c titanic
