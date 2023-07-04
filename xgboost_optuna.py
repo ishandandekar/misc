@@ -1,12 +1,14 @@
 import optuna
 import xgboost as xgb
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+import pandas as pd
+from sklearn.datasets import load_iris
 
 
 def tune_xgboost_regressor(features, target):
     X_train, X_test, y_train, y_test = train_test_split(
-        features, target, test_size=0.2, random_state=42
+        features, target, test_size=0.1, random_state=42
     )
 
     def objective(trial):
@@ -22,6 +24,9 @@ def tune_xgboost_regressor(features, target):
             "alpha": trial.suggest_float("alpha", 0.01, 10.0, log=True),
             "min_child_weight": trial.suggest_int("min_child_weight", 1, 10),
             "random_state": 42,
+            "callbacks": [
+                optuna.integration.XGBoostPruningCallback(trial, "validation_0-rmse")
+            ],
         }
 
         model = xgb.XGBRegressor(**params)
@@ -47,3 +52,23 @@ def tune_xgboost_regressor(features, target):
     best_model.fit(features, target)
 
     return best_model, best_params
+
+
+# Load Iris dataset
+iris = load_iris()
+data = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+target = iris.target
+
+# Use the tune_xgboost_regressor function
+best_model, best_params = tune_xgboost_regressor(data, target)
+
+# Print the best parameters found
+print("Best Parameters:")
+for param, value in best_params.items():
+    print(f"{param}: {value}")
+
+# Use the best model for predictions
+# (Example: Predict the target variable for the first 5 data points)
+predictions = best_model.predict(data.iloc[:5])
+print("Predictions:")
+print(predictions)
