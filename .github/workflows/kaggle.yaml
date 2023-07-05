@@ -20,3 +20,5 @@ jobs:
             mkdir data && cd data
             kaggle competitions download -qc titanic
             ls -a
+            unzip titanic.zip
+            ls -a
