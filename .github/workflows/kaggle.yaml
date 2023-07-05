@@ -18,7 +18,5 @@ jobs:
         - name: Download data to folder
           run: |
             mkdir data && cd data
-            kaggle competitions download -qc titanic
-            ls -a
-            unzip titanic.zip
+            kaggle competitions download -qc titanic && unzip titanic.zip && rm titanic.zip
             ls -a
