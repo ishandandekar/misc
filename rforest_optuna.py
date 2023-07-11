@@ -1,12 +1,14 @@
 import optuna
-from sklearn.datasets import load_boston
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error
+from sklearn.datasets import load_iris
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
+import os
+import pandas as pd
 
 
-def tune_random_forest_regressor(features, target):
+def tune_random_forest_classifier(features, target):
     X_train, X_test, y_train, y_test = train_test_split(
         features, target, test_size=0.2, random_state=42
     )
@@ -15,54 +17,46 @@ def tune_random_forest_regressor(features, target):
         params = {
             "n_estimators": trial.suggest_int("n_estimators", 100, 1000, step=100),
             "max_depth": trial.suggest_int("max_depth", 3, 10),
-            "min_samples_split": trial.suggest_int("min_samples_split", 2, 20),
+            "min_samples_split": trial.suggest_int("min_samples_split", 2, 10),
             "min_samples_leaf": trial.suggest_int("min_samples_leaf", 1, 10),
-            "max_features": trial.suggest_categorical("max_features", ["sqrt", "log2"]),
+            "max_features": trial.suggest_categorical(
+                "max_features", [None, "sqrt", "log2"]
+            ),
             "random_state": 42,
         }
 
-        model = RandomForestRegressor(**params)
+        model = RandomForestClassifier(**params)
 
         model.fit(X_train, y_train)
 
         y_pred = model.predict(X_test)
-        mse = mean_squared_error(y_test, y_pred)
-        return mse
+        accuracy = accuracy_score(y_test, y_pred)
+        return accuracy
 
-    study = optuna.create_study(direction="minimize")
+    study = optuna.create_study(direction="maximize")
     study.optimize(objective, n_trials=100)
 
     best_params = study.best_params
-    best_model = RandomForestRegressor(**best_params)
+    best_model = RandomForestClassifier(**best_params)
 
     best_model.fit(features, target)
 
-    # Visualizations
-    fig, ax = plt.subplots(figsize=(8, 6))
-    optuna.visualization.plot_param_importances(study, ax=ax)
-    plt.show()
+    # Create 'figures' folder if it doesn't exist
+    os.makedirs("figures", exist_ok=True)
 
-    optuna.visualization.plot_parallel_coordinate(study)
-    plt.show()
+    # Visualizations
+    param_importances = optuna.visualization.plot_param_importances(study)
+    param_importances.write_image("figures/param_importances.png")
+
+    parallel_coordinate = optuna.visualization.plot_parallel_coordinate(study)
+    parallel_coordinate.write_image("figures/parallel_coordinate.png")
 
     return best_model, best_params
 
 
-# Load Boston House Prices dataset
-boston = load_boston()
-data = boston.data
-target = boston.target
+iris = load_iris()
+data = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+target = iris.target
 
-# Use the tune_random_forest_regressor function
-best_model, best_params = tune_random_forest_regressor(data, target)
-
-# Print the best parameters found
-print("Best Parameters:")
-for param, value in best_params.items():
-    print(f"{param}: {value}")
-
-# Make predictions using the best model
-# (Example: Predict the target variable for the first 5 data points)
-predictions = best_model.predict(data[:5])
-print("Predictions:")
-print(predictions)
+# Use the tune_random_forest_classifier function
+best_model, best_params = tune_random_forest_classifier(data, target)
