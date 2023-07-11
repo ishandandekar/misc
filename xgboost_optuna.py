@@ -3,7 +3,7 @@ import xgboost as xgb
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 import pandas as pd
-from sklearn.datasets import load_iris
+from sklearn.datasets import load_diabetes
 
 
 def tune_xgboost_regressor(features, target):
@@ -55,9 +55,9 @@ def tune_xgboost_regressor(features, target):
 
 
 # Load Iris dataset
-iris = load_iris()
-data = pd.DataFrame(data=iris.data, columns=iris.feature_names)
-target = iris.target
+raw = load_diabetes()
+data = pd.DataFrame(data=raw.data, columns=raw.feature_names)
+target = raw.target
 
 # Use the tune_xgboost_regressor function
 best_model, best_params = tune_xgboost_regressor(data, target)
