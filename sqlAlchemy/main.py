@@ -1,10 +1,19 @@
 from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, CHAR
 from sqlalchemy.orm import sessionmaker, declarative_base
+from pydantic import BaseModel
 
 BaseSql = declarative_base()
 
 
-class Person(BaseSql):
+class Person(BaseModel):
+    ssn: int
+    firstname: str
+    lastname: str
+    gender: str
+    age: int
+
+
+class PersonModel(BaseSql):
     __tablename__ = "people"
 
     ssn = Column("ssn", Integer, primary_key=True)
@@ -20,13 +29,17 @@ class Person(BaseSql):
         self.gender = gender
         self.age = age
 
-    def __repr__(self) -> str:
-        return (
-            f"({self.ssn}) {self.firstname} {self.lastname} ({self.gender}, {self.age})"
+    def __repr__(self):
+        return Person(
+            ssn=self.ssn,
+            firstname=self.firstname,
+            lastname=self.lastname,
+            gender=self.gender,
+            age=self.age,
         )
 
 
-class Thing(BaseSql):
+class ThingModel(BaseSql):
     __tablename__ = "things"
 
     tid = Column("tid", Integer, primary_key=True)
@@ -49,20 +62,23 @@ BaseSql.metadata.create_all(bind=engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-person1 = Person(123123, "Mike", "Smith", "m", 35)
+person1 = PersonModel(123123, "Mike", "Smith", "m", 35)
 session.add(person1)
 session.commit()
 
-person2 = Person(123321, "A", "Smith", "m", 35)
-person3 = Person(123, "B", "Smith", "f", 35)
-person4 = Person(321, "C", "Smith", "f", 35)
+person2 = PersonModel(123321, "A", "Smith", "m", 25)
+person3 = PersonModel(123, "B", "Smith", "f", 19)
+person4 = PersonModel(321, "C", "Smith", "f", 8)
 session.add(person2)
 session.add(person3)
 session.add(person4)
 session.commit()
 
-# results = session.query(Person).filter(Person.firstname == "A")
-# results = session.query(Person).filter(Person.age >= 40)
+# results = session.query(PersonModel).filter(PersonModel.firstname == "A")
+results = session.query(PersonModel).filter(PersonModel.age <= 20)
+for r in results:
+    print(type(r.age))
+exit()
 # results = session.query(Person).filter(Person.firstname.like("%An%"))
 # results = session.query(Person).filter(Person.firstname.in_(["A", "B"]))
 
