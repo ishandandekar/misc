@@ -1,0 +1,14 @@
+n_estimators:
+  distribution: IntDistribution
+  low: 50
+  high: 200
+
+max_depth:
+  distribution: IntDistribution
+  low: 2
+  high: 32
+
+min_samples_split:
+  distribution: FloatDistribution
+  low: 0.1
+  high: 0.9
