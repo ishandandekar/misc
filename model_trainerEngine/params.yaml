@@ -1,0 +1,31 @@
+models:
+  lr:
+    params:
+      penalty: l2
+      C: 0.9
+      fit_intercept: False
+  knn:
+    params:
+      n_neighbors: 3
+      weights: distance
+      algorithm: auto
+  svm:
+    params:
+      C: 0.9
+      kernel: rbf
+      degree: 4
+      gamma: auto
+  voting:
+    params:
+      estimators:
+        - knn:
+            params:
+              n_neighbors: 3
+        - svm:
+            params:
+              C: 0.9
+        - lr:
+            params:
+              C: 1
+              solver: liblinear
+      voting: hard
