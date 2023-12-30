@@ -1,9 +1,7 @@
 from optuna.trial import Trial
 import optuna
-from optuna import distributions
 from pprint import pprint
 from sklearn.metrics import accuracy_score
-from sklearn.base import BaseEstimator
 from sklearn.datasets import load_iris
 from box import Box, BoxList
 from pathlib import Path
@@ -25,9 +23,9 @@ ModelFactory = {
 
 params_filepath = Path("hparams.yaml")
 with open(params_filepath, "r") as f_in:
-    params = yaml.safe_load(f_in)
-    params = Box(params)
-models: BoxList = params.get("tune").to_list()
+    hparams = yaml.safe_load(f_in)
+    hparams = Box(hparams.get("tune"))
+models: BoxList = hparams.get("models").to_list()
 for model_param_item in models:
     model_name, model_params = (
         list(model_param_item.keys())[0],
@@ -54,5 +52,5 @@ for model_param_item in models:
 
     optuna.logging.set_verbosity(optuna.logging.WARNING)
     study = optuna.create_study(direction="maximize")
-    study.optimize(objective, n_trials=10)
+    study.optimize(objective, n_trials=hparams.get("n_trials"))
     pprint(study.best_params)
