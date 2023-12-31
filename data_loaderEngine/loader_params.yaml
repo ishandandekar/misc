@@ -1,0 +1,10 @@
+data:
+  load:
+    strategy: dir
+    args:
+      dir: data
+      columns:
+        - sl
+        - sw
+        - pl
+        - pw
