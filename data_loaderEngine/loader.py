@@ -4,7 +4,6 @@ from io import StringIO
 from pathlib import Path
 import typing as t
 import pandas as pd
-from pandas.core.api import DataFrame as DataFrame
 import requests
 import boto3
 
@@ -43,7 +42,7 @@ class UrlDataLoaderStrategy(DataLoaderStrategy):
     url: str
     columns: list[str]
 
-    def __call__(self) -> DataFrame:
+    def __call__(self) -> pd.DataFrame:
         if not self.url.endswith(".csv"):
             raise Exception(f"The url is not of a `.csv`: {self.url}")
         response = requests.get(self.url)
@@ -61,7 +60,7 @@ class AwsS3DataLoaderStrategy(DataLoaderStrategy):
     folder_path: str
     session: boto3.Session
 
-    def __call__(self) -> DataFrame:
+    def __call__(self) -> pd.DataFrame:
         s3_client = self.session.client("s3")
         if self.folder_path == "":
             s3_url = f"s3://{self.bucket_name}"
