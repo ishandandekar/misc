@@ -11,7 +11,7 @@ import boto3
 
 class DataLoaderStrategy(ABC):
     @abstractmethod
-    def load_data(self) -> pd.DataFrame:
+    def __call__(self) -> pd.DataFrame:
         """
         Load data
         """
@@ -22,7 +22,7 @@ class DirDataLoaderStrategy(DataLoaderStrategy):
     dir: t.Union[Path, str]
     columns: list[str]
 
-    def load_data(self) -> pd.DataFrame:
+    def __call__(self) -> pd.DataFrame:
         if isinstance(self.dir, str):
             self.dir = Path(self.dir)
         if self.dir.is_dir():
@@ -43,7 +43,7 @@ class UrlDataLoaderStrategy(DataLoaderStrategy):
     url: str
     columns: list[str]
 
-    def load_data(self) -> DataFrame:
+    def __call__(self) -> DataFrame:
         if not self.url.endswith(".csv"):
             raise Exception(f"The url is not of a `.csv`: {self.url}")
         response = requests.get(self.url)
@@ -61,7 +61,7 @@ class AwsS3DataLoaderStrategy(DataLoaderStrategy):
     folder_path: str
     session: boto3.Session
 
-    def load_data(self) -> DataFrame:
+    def __call__(self) -> DataFrame:
         s3_client = self.session.client("s3")
         if self.folder_path == "":
             s3_url = f"s3://{self.bucket_name}"
@@ -92,7 +92,7 @@ class AwsS3DataLoaderStrategy(DataLoaderStrategy):
         return pd.concat(dataframes, ignore_index=True)
 
 
-StrategyMap: t.Dict[str, t.Type[DataLoaderStrategy]] = {
+DataLoaderStrategyFactory: t.Dict[str, t.Type[DataLoaderStrategy]] = {
     "dir": DirDataLoaderStrategy,
     "url": UrlDataLoaderStrategy,
     "aws_s3": AwsS3DataLoaderStrategy,
@@ -107,6 +107,5 @@ if __name__ == "__main__":
     with open(params_filepath, "r") as f_in:
         load_params = Box(yaml.safe_load(f_in)).data.load
 
-    dataloader = StrategyMap.get(load_params.strategy)(**load_params.args)
-    data = dataloader.load_data()
+    data = DataLoaderStrategyFactory.get(load_params.strategy)(**load_params.args)()
     print(data.head(4))
