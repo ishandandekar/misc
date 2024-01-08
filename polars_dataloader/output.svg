@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1571pt" height="205pt" viewBox="0.00 0.00 1571.00 205.00">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 201)">
+<title>polars_query</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-201 1567,-201 1567,4 -4,4"/>
+<!-- UNION [(0, 0)] -->
+<g id="node1" class="node">
+<title>UNION [(0, 0)]</title>
+<polygon fill="none" stroke="black" points="811.5,-197 751.5,-197 751.5,-161 811.5,-161 811.5,-197"/>
+<text text-anchor="middle" x="781.5" y="-175.3" font-family="Times,serif" font-size="14.00">UNION</text>
+</g>
+<!-- WITH COLUMNS [&quot;TotalCharges&quot;] [(0, 1)] -->
+<g id="node2" class="node">
+<title>WITH COLUMNS [&quot;TotalCharges&quot;] [(0, 1)]</title>
+<polygon fill="none" stroke="black" points="509,-125 288,-125 288,-89 509,-89 509,-125"/>
+<text text-anchor="middle" x="398.5" y="-103.3" font-family="Times,serif" font-size="14.00">WITH COLUMNS [&quot;TotalCharges&quot;]</text>
+</g>
+<!-- UNION [(0, 0)]&#45;&#45;WITH COLUMNS [&quot;TotalCharges&quot;] [(0, 1)] -->
+<g id="edge1" class="edge">
+<title>UNION [(0, 0)]--WITH COLUMNS [&quot;TotalCharges&quot;] [(0, 1)]</title>
+<path fill="none" stroke="black" d="M751.45,-172.51C696.16,-162.4 576.25,-140.49 491.59,-125.01"/>
+</g>
+<!-- WITH COLUMNS [&quot;TotalCharges&quot;] [(1, 1)] -->
+<g id="node4" class="node">
+<title>WITH COLUMNS [&quot;TotalCharges&quot;] [(1, 1)]</title>
+<polygon fill="none" stroke="black" points="892,-125 671,-125 671,-89 892,-89 892,-125"/>
+<text text-anchor="middle" x="781.5" y="-103.3" font-family="Times,serif" font-size="14.00">WITH COLUMNS [&quot;TotalCharges&quot;]</text>
+</g>
+<!-- UNION [(0, 0)]&#45;&#45;WITH COLUMNS [&quot;TotalCharges&quot;] [(1, 1)] -->
+<g id="edge3" class="edge">
+<title>UNION [(0, 0)]--WITH COLUMNS [&quot;TotalCharges&quot;] [(1, 1)]</title>
+<path fill="none" stroke="black" d="M781.5,-160.7C781.5,-149.85 781.5,-135.92 781.5,-125.1"/>
+</g>
+<!-- WITH COLUMNS [&quot;TotalCharges&quot;] [(2, 1)] -->
+<g id="node6" class="node">
+<title>WITH COLUMNS [&quot;TotalCharges&quot;] [(2, 1)]</title>
+<polygon fill="none" stroke="black" points="1275,-125 1054,-125 1054,-89 1275,-89 1275,-125"/>
+<text text-anchor="middle" x="1164.5" y="-103.3" font-family="Times,serif" font-size="14.00">WITH COLUMNS [&quot;TotalCharges&quot;]</text>
+</g>
+<!-- UNION [(0, 0)]&#45;&#45;WITH COLUMNS [&quot;TotalCharges&quot;] [(2, 1)] -->
+<g id="edge5" class="edge">
+<title>UNION [(0, 0)]--WITH COLUMNS [&quot;TotalCharges&quot;] [(2, 1)]</title>
+<path fill="none" stroke="black" d="M811.55,-172.51C866.84,-162.4 986.75,-140.49 1071.41,-125.01"/>
+</g>
+<!-- Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/3.csv;
+π */21;
+σ &#45; [(0, 2)] -->
+<g id="node3" class="node">
+<title>Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/3.csv;
+π */21;
+σ - [(0, 2)]</title>
+<polygon fill="none" stroke="black" points="509,-53 0,-53 0,0 509,0 509,-53"/>
+<text text-anchor="middle" x="254.5" y="-37.8" font-family="Times,serif" font-size="14.00">Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/3.csv;</text>
+<text text-anchor="middle" x="254.5" y="-22.8" font-family="Times,serif" font-size="14.00">π */21;</text>
+<text text-anchor="middle" x="254.5" y="-7.8" font-family="Times,serif" font-size="14.00">σ -</text>
+</g>
+<!-- WITH COLUMNS [&quot;TotalCharges&quot;] [(0, 1)]&#45;&#45;Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/3.csv;
+π */21;
+σ &#45; [(0, 2)] -->
+<g id="edge2" class="edge">
+<title>WITH COLUMNS [&quot;TotalCharges&quot;] [(0, 1)]--Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/3.csv;
+π */21;
+σ - [(0, 2)]</title>
+<path fill="none" stroke="black" d="M367.25,-88.97C347.98,-78.46 322.9,-64.79 301.29,-53"/>
+</g>
+<!-- Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/2.csv;
+π */21;
+σ &#45; [(1, 2)] -->
+<g id="node5" class="node">
+<title>Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/2.csv;
+π */21;
+σ - [(1, 2)]</title>
+<polygon fill="none" stroke="black" points="1036,-53 527,-53 527,0 1036,0 1036,-53"/>
+<text text-anchor="middle" x="781.5" y="-37.8" font-family="Times,serif" font-size="14.00">Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/2.csv;</text>
+<text text-anchor="middle" x="781.5" y="-22.8" font-family="Times,serif" font-size="14.00">π */21;</text>
+<text text-anchor="middle" x="781.5" y="-7.8" font-family="Times,serif" font-size="14.00">σ -</text>
+</g>
+<!-- WITH COLUMNS [&quot;TotalCharges&quot;] [(1, 1)]&#45;&#45;Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/2.csv;
+π */21;
+σ &#45; [(1, 2)] -->
+<g id="edge4" class="edge">
+<title>WITH COLUMNS [&quot;TotalCharges&quot;] [(1, 1)]--Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/2.csv;
+π */21;
+σ - [(1, 2)]</title>
+<path fill="none" stroke="black" d="M781.5,-88.97C781.5,-78.51 781.5,-64.9 781.5,-53.16"/>
+</g>
+<!-- Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/1.csv;
+π */21;
+σ &#45; [(2, 2)] -->
+<g id="node7" class="node">
+<title>Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/1.csv;
+π */21;
+σ - [(2, 2)]</title>
+<polygon fill="none" stroke="black" points="1563,-53 1054,-53 1054,0 1563,0 1563,-53"/>
+<text text-anchor="middle" x="1308.5" y="-37.8" font-family="Times,serif" font-size="14.00">Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/1.csv;</text>
+<text text-anchor="middle" x="1308.5" y="-22.8" font-family="Times,serif" font-size="14.00">π */21;</text>
+<text text-anchor="middle" x="1308.5" y="-7.8" font-family="Times,serif" font-size="14.00">σ -</text>
+</g>
+<!-- WITH COLUMNS [&quot;TotalCharges&quot;] [(2, 1)]&#45;&#45;Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/1.csv;
+π */21;
+σ &#45; [(2, 2)] -->
+<g id="edge6" class="edge">
+<title>WITH COLUMNS [&quot;TotalCharges&quot;] [(2, 1)]--Csv SCAN /home/ishan/Desktop/programs/pythonfiles/misc/polars_dataloader/data/1.csv;
+π */21;
+σ - [(2, 2)]</title>
+<path fill="none" stroke="black" d="M1195.75,-88.97C1215.02,-78.46 1240.1,-64.79 1261.71,-53"/>
+</g>
+</g>
+</svg>
